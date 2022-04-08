@@ -1,10 +1,5 @@
 ﻿using Framework.Selenium;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Royal.Pages
 {
@@ -16,9 +11,30 @@ namespace Royal.Pages
             Map = new CopyDeckPageMap();
         }
 
-        public void ClickYesButton()
+        public CopyDeckPage ClickYesButton()
         {
             Map.YesButton.Click();
+            Driver.Wait.Until(drvr => Map.CopiedMessage.Displayed);
+            return this;
+        }
+
+        public CopyDeckPage ClickNoButton()
+        {
+            Map.NoButton.Click();
+            Driver.Wait.Until(drvr => Map.CopiedMessage.Displayed);
+            return this;
+        }
+
+        public void OpenAppStore()
+        {
+            Map.AppStoreIcon.Click();
+            Driver.Wait.Until(drvr => Map.AppStoreIcon.Displayed);
+        }
+
+        public void OpenGooglePlay()
+        {
+            Map.GooglePlayIcon.Click();
+            Driver.Wait.Until(drvr => Map.GooglePlayIcon.Displayed);
         }
 
     }
@@ -26,6 +42,9 @@ namespace Royal.Pages
     public class CopyDeckPageMap
     {
         public IWebElement YesButton => Driver.FindElement(By.ClassName("copyButton"));
+        public IWebElement NoButton => Driver.FindElement(By.Id("not-installed"));
         public IWebElement CopiedMessage => Driver.FindElement(By.Id("button-open"));
+        public IWebElement GooglePlayIcon => Driver.FindElement(By.XPath("//a[contains(text(),'Google Play')]"));
+        public IWebElement AppStoreIcon => Driver.FindElement(By.XPath("//a[contains(text(),'App Store')]"));
     }
 }

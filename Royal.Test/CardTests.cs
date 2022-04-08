@@ -1,17 +1,23 @@
+using Framework;
 using Framework.Model;
 using Framework.Selenium;
 using Framework.Services;
 using NUnit.Framework;
-using Royal.Pages;
 using System.Collections.Generic;
 
 namespace Royal.Test
 {
     public class CardTests
     {
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            FW.CreateTestResultsDirectory();
+        }
         [SetUp]
         public void BeforeEach()
         {
+            FW.SetLogger();
             Driver.Init();
             Pages.Pages.Init();
             Driver.GoTo("https://statsroyale.com");
@@ -19,7 +25,7 @@ namespace Royal.Test
         [TearDown]
         public void AfterEach()
         {
-            Driver.Current.Quit();
+            Driver.Quit();
         }
 
         static IList<Card> apiCards = new ApiCardService().GetAllCards();

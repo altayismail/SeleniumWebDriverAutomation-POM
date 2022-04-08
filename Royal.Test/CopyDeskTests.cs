@@ -1,20 +1,21 @@
-﻿using Framework.Model;
+﻿using Framework;
 using Framework.Selenium;
-using Framework.Services;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
 
 
 namespace Royal.Test
 {
     public class CopyDeskTests
     {
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            FW.CreateTestResultsDirectory();
+        }
         [SetUp]
         public void BeforeEach()
         {
+            FW.SetLogger();
             Driver.Init();
             Pages.Pages.Init();
             Driver.GoTo("https://statsroyale.com");
@@ -22,24 +23,35 @@ namespace Royal.Test
         [TearDown]
         public void AfterEach()
         {
-            Driver.Current.Quit();
+            Driver.Quit();
         }
 
-        [Test]
+        [Test, Category("copyDeck")]
         public void User_can_copy_the_Deck()
         {
-            Pages.Pages.DeckBuilder.Goto();
-            Pages.Pages.DeckBuilder.AddCardManually();
-            
-            Driver.Wait.Until(drvr => Pages.Pages.DeckBuilder.Map.CopyDeckIcon.Displayed);
+            Pages.Pages.DeckBuilder.Goto().AddCardManually();
             Pages.Pages.DeckBuilder.CopySuggestedDeck();
-            
-            Driver.FindElement(By.Id("button-open")).Click();
-            
             Pages.Pages.CopyDeck.ClickYesButton();
-            Driver.Wait.Until(drvr => Pages.Pages.CopyDeck.Map.CopiedMessage.Displayed);
 
             Assert.That(Pages.Pages.CopyDeck.Map.CopiedMessage.Displayed);
+        }
+
+        [Test, Category("copyDeck")]
+        public void User_Opens_App_Store()
+        {
+            Pages.Pages.DeckBuilder.Goto().AddCardManually();
+            Pages.Pages.DeckBuilder.CopySuggestedDeck();
+            Pages.Pages.CopyDeck.ClickNoButton().OpenAppStore();
+            Assert.AreEqual(Driver.Title, Is.EqualTo("Clash Royale on the App Store"));
+        }
+
+        [Test, Category("copyDeck")]
+        public void User_Opens_Google_Play()
+        {
+            Pages.Pages.DeckBuilder.Goto().AddCardManually();
+            Pages.Pages.DeckBuilder.CopySuggestedDeck();
+            Pages.Pages.CopyDeck.ClickNoButton().OpenGooglePlay();
+            Assert.AreEqual(Driver.Title, Is.EqualTo("Clash Royale - Apps on Google Play"));
         }
     }
 }

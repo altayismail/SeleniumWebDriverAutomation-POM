@@ -1,10 +1,6 @@
-﻿using Framework.Selenium;
+﻿using Framework;
+using Framework.Selenium;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Royal.Pages
 {
@@ -17,17 +13,23 @@ namespace Royal.Pages
         }
         public DeckBuilderPage Goto()
         {
+            FW.Log.Step("Click Deck Builder link");
             headerNav.Map.DeckBuilderLink.Click();
+            Driver.Wait.Until(drvr => Map.AddCardsManuallyLink.Displayed);
             return this;
         }
 
         public void AddCardManually()
         {
+            Driver.Wait.Until(drv => Map.AddCardsManuallyLink.Displayed);
+            FW.Log.Step("Click Add Cards Manually link");
             Map.AddCardsManuallyLink.Click();
+            Driver.Wait.Until(drvr => Map.CopyDeckIcon.Displayed);
         }
 
         public void CopySuggestedDeck()
         {
+            FW.Log.Step("Click Copy Deck Icon");
             Map.CopyDeckIcon.Click();
         }
     }

@@ -1,5 +1,4 @@
-﻿using Framework.Selenium;
-using System;
+﻿using System;
 
 namespace Royal.Pages
 {
