@@ -10,10 +10,13 @@ namespace Framework.Selenium
     {
         [ThreadStatic]
         private static IWebDriver _driver;
+        [ThreadStatic]
+        public static Wait Wait;
 
         public static void Init()
         {
             _driver = new ChromeDriver(@"C:\Users\Ismail ALTAY\source\repos\Framework\_driver");
+            Wait = new Wait(10);
         }
 
         public static void GoTo(string url)
