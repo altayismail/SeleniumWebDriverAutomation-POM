@@ -7,3 +7,4 @@
 - NUnit3TestAdapter 3.17.0
 - RestSharp 106.6.10 !!!!!
 - Newtonsoft.Json 13.0.1
+- DotNetSeleniumExtras.WaitHelpers 3.11.0
