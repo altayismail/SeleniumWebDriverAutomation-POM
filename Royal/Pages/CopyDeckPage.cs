@@ -14,27 +14,27 @@ namespace Royal.Pages
         public CopyDeckPage ClickYesButton()
         {
             Map.YesButton.Click();
-            Driver.Wait.Until(drvr => Map.CopiedMessage.Displayed);
+            Driver.Wait.Until(WaitConditions.ElementIsDisplayed(Map.CopiedMessage));
             return this;
         }
 
         public CopyDeckPage ClickNoButton()
         {
+            Driver.Wait.Until(WaitConditions.ElementIsDisplayed(Map.NoButton));
             Map.NoButton.Click();
-            Driver.Wait.Until(drvr => Map.CopiedMessage.Displayed);
             return this;
         }
 
         public void OpenAppStore()
         {
             Map.AppStoreIcon.Click();
-            Driver.Wait.Until(drvr => Map.AppStoreIcon.Displayed);
+            Driver.Wait.Until(WaitConditions.ElementIsDisplayed(Map.AppStoreIcon));
         }
 
         public void OpenGooglePlay()
         {
             Map.GooglePlayIcon.Click();
-            Driver.Wait.Until(drvr => Map.GooglePlayIcon.Displayed);
+            Driver.Wait.Until(WaitConditions.ElementDisplayed(Map.GooglePlayIcon));
         }
 
     }
