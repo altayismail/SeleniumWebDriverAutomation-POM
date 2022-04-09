@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
+using System.IO;
 
 namespace Framework.Selenium
 {
@@ -11,12 +10,15 @@ namespace Framework.Selenium
         private static IWebDriver _driver;
         [ThreadStatic]
         public static Wait Wait;
+        [ThreadStatic]
+        public static Window Window;
 
         public static void Init()
         {
-            FW.Log.Info("Browser: Chrome");
-            _driver = new ChromeDriver(@"C:\Users\Ismail ALTAY\source\repos\Framework\_driver");
-            Wait = new Wait(10);
+            _driver = DriverFactory.Build(FW.Config.Driver.Browser);
+            Wait = new Wait(FW.Config.Driver.Wait);
+            Window = new Window();
+            Window.Maximize();
         }
 
         public static void GoTo(string url)
@@ -26,6 +28,13 @@ namespace Framework.Selenium
 
             FW.Log.Info(url);
             Current.Navigate().GoToUrl(url);
+        }
+
+        public static void TakeScreenShot(string imageName)
+        {
+            var ss = ((ITakesScreenshot)Current).GetScreenshot();
+            var ssFileName = Path.Combine(FW.CurrentTestDirectory.FullName, imageName);
+            ss.SaveAsFile($"{ssFileName}.png", ScreenshotImageFormat.Png);
         }
 
         public static void Quit()
@@ -38,14 +47,20 @@ namespace Framework.Selenium
         public static IWebDriver Current => _driver ?? throw new NullReferenceException("_driver is null");
         public static string Title => Current.Title; 
 
-        public static IWebElement FindElement(By by)
+        public static Element FindElement(By by, string name)
         {
-            return Current.FindElement(by);
+            return new Element(Current.FindElement(by), name)
+            {
+                FoundBy = by
+            };
         }
 
-        public static IList<IWebElement> FindElements(By by)
+        public static Elements FindElements(By by)
         {
-            return Current.FindElements(by);
+            return new Elements(Current.FindElements(by))
+            {
+                FoundBy = by
+            };
         }
     }
 }

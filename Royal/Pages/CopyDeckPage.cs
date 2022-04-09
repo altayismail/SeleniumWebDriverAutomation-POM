@@ -41,10 +41,10 @@ namespace Royal.Pages
 
     public class CopyDeckPageMap
     {
-        public IWebElement YesButton => Driver.FindElement(By.ClassName("copyButton"));
-        public IWebElement NoButton => Driver.FindElement(By.Id("not-installed"));
-        public IWebElement CopiedMessage => Driver.FindElement(By.Id("button-open"));
-        public IWebElement GooglePlayIcon => Driver.FindElement(By.XPath("//a[contains(text(),'Google Play')]"));
-        public IWebElement AppStoreIcon => Driver.FindElement(By.XPath("//a[contains(text(),'App Store')]"));
+        public Element YesButton => Driver.FindElement(By.ClassName("copyButton"), "Yes Button");
+        public Element NoButton => Driver.FindElement(By.Id("not-installed"), "No Button");
+        public Element CopiedMessage => Driver.FindElement(By.Id("button-open"), "Copied Message");
+        public Element GooglePlayIcon => Driver.FindElement(By.XPath("//a[contains(text(),'Google Play')]"), "Google Play Icon");
+        public Element AppStoreIcon => Driver.FindElement(By.XPath("//a[contains(text(),'App Store')]"), "App Store Icon");
     }
 }

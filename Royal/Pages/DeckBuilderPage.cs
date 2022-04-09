@@ -36,7 +36,7 @@ namespace Royal.Pages
 
     public class DeckBuilderPageMap
     {
-        public IWebElement AddCardsManuallyLink => Driver.FindElement(By.CssSelector("a[href=/deckbuilder]"));
-        public IWebElement CopyDeckIcon => Driver.FindElement(By.XPath("/html/body/div[4]/div[2]/div/div/div/div[2]/form/div[3]/a"));
+        public Element AddCardsManuallyLink => Driver.FindElement(By.CssSelector("a[href='/deckbuilder']"), "Add Cards Manually Link");
+        public Element CopyDeckIcon => Driver.FindElement(By.XPath("/html/body/div[4]/div[2]/div/div/div/div[2]/form/div[3]/a"), "Copy Deck Icon");
     }
 }

@@ -3,31 +3,13 @@ using Framework.Model;
 using Framework.Selenium;
 using Framework.Services;
 using NUnit.Framework;
+using Royal.Test.Base;
 using System.Collections.Generic;
 
 namespace Royal.Test
 {
-    public class CardTests
+    public class CardTests : TestBase
     {
-        [OneTimeSetUp]
-        public void BeforeAll()
-        {
-            FW.CreateTestResultsDirectory();
-        }
-        [SetUp]
-        public void BeforeEach()
-        {
-            FW.SetLogger();
-            Driver.Init();
-            Pages.Pages.Init();
-            Driver.GoTo("https://statsroyale.com");
-        }
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
-        }
-
         static IList<Card> apiCards = new ApiCardService().GetAllCards();
 
         [Test, Category("Cards")]
@@ -45,9 +27,7 @@ namespace Royal.Test
         public void Give_Card_Headers_are_Correct_on_Cards_Detail_Page(Card card)
         {
             Pages.Pages.Cards.Goto().GetCardByName(card.Name).Click();
-
             var cardOnPage = Pages.Pages.CardDetails.GetBaseCard();
-            var cards = new InMemoryCardService().GetCardByName(card.Name);
 
             Assert.AreEqual(card.Name, cardOnPage.Name);
             Assert.AreEqual(card.Type, cardOnPage.Type);

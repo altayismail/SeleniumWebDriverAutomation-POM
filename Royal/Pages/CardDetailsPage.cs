@@ -35,10 +35,10 @@ namespace Royal.Pages
 
     public class CardDetailsPageMap
     {
-        public IWebElement CardName => Driver.FindElement(By.CssSelector("[class*='card__cardName']"));
+        public Element CardName => Driver.FindElement(By.CssSelector("[class*='card__cardName']"), "Card Name");
 
-        public IWebElement CardCategories => Driver.FindElement(By.CssSelector("div[class*='card__rarity']"));
+        public Element CardCategories => Driver.FindElement(By.CssSelector("div[class*='card__rarity']"), "Card Category");
 
-        public IWebElement CardRarity => Driver.FindElement(By.CssSelector("[class*='card__common']"));
+        public Element CardRarity => Driver.FindElement(By.CssSelector("div[class*='card__common']"), "Card Rarity");
     }
 }

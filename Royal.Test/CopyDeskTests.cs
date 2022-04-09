@@ -1,31 +1,11 @@
-﻿using Framework;
-using Framework.Selenium;
+﻿using Framework.Selenium;
 using NUnit.Framework;
-
+using Royal.Test.Base;
 
 namespace Royal.Test
 {
-    public class CopyDeskTests
+    public class CopyDeskTests : TestBase
     {
-        [OneTimeSetUp]
-        public void BeforeAll()
-        {
-            FW.CreateTestResultsDirectory();
-        }
-        [SetUp]
-        public void BeforeEach()
-        {
-            FW.SetLogger();
-            Driver.Init();
-            Pages.Pages.Init();
-            Driver.GoTo("https://statsroyale.com");
-        }
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
-        }
-
         [Test, Category("copyDeck")]
         public void User_can_copy_the_Deck()
         {
