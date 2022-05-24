@@ -5,6 +5,6 @@
 - Selenium.Support 4.1.0
 - Selenium.WebDriver 4.1.0
 - NUnit3TestAdapter 3.17.0
-- RestSharp 106.6.10 !!!!!
+- RestSharp 106.12.10 !!!!!
 - Newtonsoft.Json 13.0.1
 - DotNetSeleniumExtras.WaitHelpers 3.11.0
